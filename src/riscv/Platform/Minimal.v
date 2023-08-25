@@ -46,9 +46,8 @@ Section Riscv.
     update (fun mach =>
               withXAddrs (invalidateWrittenXAddrs n a mach.(getXAddrs)) (withMem m mach)).
 
-  Instance IsRiscvMachine: RiscvProgram (OState RiscvMachine) word :=  {
-      getRegister reg :=
-        if Z.eq_dec reg Register0 then
+  Let getRegister reg :=
+    if Z.eq_dec reg Register0 then
           Return (ZToReg 0)
         else
           if (0 <? reg) && (reg <? 32) then
@@ -58,7 +57,14 @@ Section Riscv.
             | None => Return (word.of_Z 0)
             end
           else
-            fail_hard;
+            fail_hard. Print leakage_of_instr. Print Return.
+
+  Definition getRegisterZ reg :=
+    word_val <- getRegister reg; Return (word.unsigned word_val).
+  
+
+  Instance IsRiscvMachine: RiscvProgram (OState RiscvMachine) word :=  {
+      getRegister := getRegister;
 
       setRegister reg v :=
         if Z.eq_dec reg Register0 then
@@ -92,6 +98,8 @@ Section Riscv.
       setPrivMode v := fail_hard;
       fence _ _ := fail_hard;
 
+      logInstr instr := event <- leakage_of_instr getRegisterZ instr; update (withTraceItem event);
+
       endCycleNormal := update (fun m => (withPc m.(getNextPc)
                                          (withNextPc (word.add m.(getNextPc) (word.of_Z 4)) m)));
 
@@ -111,8 +119,8 @@ Section Riscv.
       Execute = Fetch -> isXAddr4 addr xAddrs.
   Proof. intros. discriminate. Qed.
 
-  Ltac t :=
-    repeat match goal with
+  Ltac step_t :=
+    match goal with
        | |- _ => reflexivity
        | |- _ => progress (
                      unfold computation_satisfies, computation_with_answer_satisfies,
@@ -121,6 +129,7 @@ Section Riscv.
                             is_initial_register_value,
                             get, put, fail_hard,
                             update,
+                            getRegister,
                             Memory.loadByte, Memory.storeByte,
                             Memory.loadHalf, Memory.storeHalf,
                             Memory.loadWord, Memory.storeWord,
@@ -171,9 +180,11 @@ Section Riscv.
             let s := fresh "s" in evar (s: S);
             exists (fun a0 s0 => a0 = a /\ s0 = s);
             subst a s
-       | |- _ \/ _ => left; solve [t]
-       | |- _ \/ _ => right; solve [t]
-       end.
+       | |- _ \/ _ => left; solve [repeat step_t]
+       | |- _ \/ _ => right; solve [repeat step_t]
+    end.
+
+  Ltac t := repeat step_t.
 
   Instance MinimalPrimitivesParams: PrimitivesParams (OState RiscvMachine) RiscvMachine := {
     Primitives.mcomp_sat := @OStateOperations.computation_with_answer_satisfies RiscvMachine;
@@ -229,13 +240,20 @@ Section Riscv.
   Proof.
     constructor.
     all: intros;
-      unfold getRegister, setRegister,
+      unfold Machine.getRegister, setRegister,
          loadByte, loadHalf, loadWord, loadDouble,
          storeByte, storeHalf, storeWord, storeDouble,
          getPC, setPC,
+         logInstr, leakage_of_instr,
          endCycleNormal, endCycleEarly, raiseExceptionWithInfo,
          IsRiscvMachine,
-         loadN, storeN, fail_if_None.
+      loadN, storeN, fail_if_None.
+    all: unfold leakage_of_instr.
+    all: unfold leakage_of_instr_I, leakage_of_instr_M, leakage_of_instr_A, leakage_of_instr_F,
+        leakage_of_instr_I64, leakage_of_instr_M64, leakage_of_instr_A64, leakage_of_instr_F64,
+        leakage_of_instr_CSR.
+    all: unfold getRegisterZ.
+    all: unfold getRegister.
 
     all: repeat match goal with
                 | |- _ => apply logEvent_sane

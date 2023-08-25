@@ -20,6 +20,20 @@ Require Import riscv.Platform.Sane.
 Local Open Scope Z_scope.
 Local Open Scope bool_scope.
 
+Definition Mtriv (x : Type) := x.
+Definition trivialBind (A B : Type) (x : Mtriv A) (f : A -> B) : Mtriv B := f x.
+Definition trivialReturn (A : Type) (a : A) : Mtriv A := a.
+Print Monad.
+Lemma trivial_left_identity : forall (A B : Type) (a : A) (f : A -> Mtriv B), trivialBind A B (trivialReturn A a) f = f a.
+Proof. trivial. Qed.
+Lemma trivial_right_identity : forall (A : Type) (m : Mtriv A), trivialBind A A m (trivialReturn A) = m.
+Proof. trivial. Qed.
+Lemma trivial_associativity : forall (A B C : Type) (m : Mtriv A) (f : A -> Mtriv B) (g : B -> Mtriv C), trivialBind B C (trivialBind A B m f) g = trivialBind A C m (fun x : A => trivialBind B C (f x) g).
+Proof. trivial. Qed.
+ 
+Definition trivialMonad : Monad Mtriv :=
+  {| Bind := trivialBind; Return := trivialReturn; left_identity := trivial_left_identity; right_identity := trivial_right_identity; associativity := trivial_associativity |}.
+
 
 Class MMIOSpec{width: Z}{BW: Bitwidth width}{word: word width} := {
   (* should not say anything about alignment, just whether it's in the MMIO range *)
@@ -67,6 +81,14 @@ Section Riscv.
     | None => nonmem_load n ctxid a mach post
     end.
 
+  Print RiscvProgram.
+
+  Definition getRegister' mach reg :=
+    if Z.eq_dec reg 0 then word.of_Z 0
+    else match map.get mach.(getRegs) reg with
+         | Some x => x
+         | None => word.of_Z 0 end.
+
   Instance IsRiscvMachine: RiscvProgram (Post RiscvMachine) word. refine ({|
     getRegister reg := fun mach post => _;
     setRegister reg v := fun mach post => _;
@@ -88,15 +110,12 @@ Section Riscv.
     getPrivMode        := fun _ _ => False;
     setPrivMode _      := fun _ _ => False;
     fence _ _          := fun _ _ => False;
+    logInstr i := fun mach post => _;
     endCycleEarly _    := fun _ _ => False;
     endCycleNormal     := fun mach post => _;
   |}).
   (* TODO: inline the terms below into the holes above while keeping Coq's typechecker happy *)
-  - exact (let v :=
-        if Z.eq_dec reg 0 then word.of_Z 0
-        else match map.get mach.(getRegs) reg with
-             | Some x => x
-             | None => word.of_Z 0 end in
+  - exact (let v := getRegister' mach reg in
            post v mach).
   - exact (let regs := if Z.eq_dec reg Register0
                        then mach.(getRegs)
@@ -112,6 +131,7 @@ Section Riscv.
   - exact (store 8 ctxid a v mach (post tt)).
   - exact (post mach.(getPc) mach).
   - exact (post tt (withNextPc newPC mach)).
+  - exact (post tt (withTraceItem (@leakage_of_instr Mtriv trivialMonad (fun reg => word.unsigned (getRegister' mach reg)) i) mach)).
   - exact (post tt (withPc mach.(getNextPc) (withNextPc (word.add mach.(getNextPc) (word.of_Z 4)) mach))).
   Defined.
 

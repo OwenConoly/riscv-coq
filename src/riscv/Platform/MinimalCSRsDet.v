@@ -24,6 +24,7 @@ Definition mem: nat := 3.
 Definition log: nat := 5.
 (* metrics: 6 *)
 Definition csrs: nat := 7.
+Definition trace: nat := 8.
 
 Section Riscv.
   Context {width: Z} {BW: Bitwidth width} {word: word width} {word_ok: word.ok word}.
@@ -37,7 +38,8 @@ Section Riscv.
     (nextPc, word: Type);
     (mem, Mem: Type);
     (log, list RiscvMachine.LogItem: Type);
-    (csrs, CSRFile: Type)
+    (csrs, CSRFile: Type);
+    (trace, list LeakageEvent: Type)
    ].
 
   Definition State: Type := hnatmap Fields.
@@ -65,16 +67,21 @@ Section Riscv.
   Definition updatePc(mach: State): State :=
     mach[pc := mach[nextPc]][nextPc := word.add mach[nextPc] (word.of_Z 4)].
 
-  Instance IsRiscvMachine: RiscvProgram (StateAbortFail State) word := {
-      getRegister reg :=
-        if Z.eq_dec reg Register0 then
+  Definition getRegister reg :=
+    if Z.eq_dec reg Register0 then
           Return (ZToReg 0)
         else
           if (0 <? reg) && (reg <? 32) then
             mach <- get;
             fail_if_None (map.get mach[regs] reg)
           else
-            fail_hard;
+            fail_hard.
+
+  Definition getRegisterZ reg :=
+    word_val <- getRegister reg; Return (word.unsigned word_val).
+
+  Instance IsRiscvMachine: RiscvProgram (StateAbortFail State) word := {
+      getRegister := getRegister;
 
       setRegister reg v :=
         if Z.eq_dec reg Register0 then
@@ -112,6 +119,8 @@ Section Riscv.
         | User | Supervisor => fail_hard
         end;
       fence _ _ := fail_hard;
+
+      logInstr i := mach <- get; event <- leakage_of_instr getRegisterZ i; put mach[trace := event :: mach[trace]];
 
       endCycleNormal := mach <- get; put (updatePc mach);
       endCycleEarly{A: Type} := mach <- get; put (updatePc mach);; abort;

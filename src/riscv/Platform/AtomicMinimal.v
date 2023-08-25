@@ -58,6 +58,7 @@ Section Riscv.
       getPrivMode := liftL0 id getPrivMode;
       setPrivMode := liftL1 id setPrivMode;
       fence := liftL2 id fence;
+      logInstr := liftL1 id logInstr;
       endCycleNormal := liftL0 id endCycleNormal;
       endCycleEarly{A} := liftL0 id (@endCycleEarly _ _ _ _ _ A);
     }.

@@ -35,6 +35,7 @@ Section MetricPrimitives.
       (mcomp_sat comp st (fun a st' =>
          (post a st' /\ exists diff, st'.(getLog) = diff ++ st.(getLog)) /\ valid_machine st')).
 
+  (* stuff about io and adding log items is hidden in PrimitivesParams *)
   Class MetricPrimitivesSane(p: PrimitivesParams M MetricRiscvMachine): Prop := {
     getRegister_sane: forall r, mcomp_sane (getRegister r);
     setRegister_sane: forall r v, mcomp_sane (setRegister r v);
@@ -54,6 +55,7 @@ Section MetricPrimitives.
     getPrivMode_sane: mcomp_sane getPrivMode;
     setPrivMode_sane: forall m, mcomp_sane (setPrivMode m);
     fence_sane: forall a b, mcomp_sane (fence a b);
+    logInstr_sane: forall a, mcomp_sane (logInstr a);
     getPC_sane: mcomp_sane getPC;
     setPC_sane: forall newPc, mcomp_sane (setPC newPc);
     endCycleNormal_sane: mcomp_sane endCycleNormal;

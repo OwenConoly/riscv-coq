@@ -6,7 +6,7 @@ Require Import riscv.Utility.MkMachineWidth.
 Require Import riscv.Utility.Utility.
 
 Section Riscv.
-  Import free.
+  Import free. Print RiscvProgram.
 
   Variant riscv_primitive{width}{BW: Bitwidth width}{word: word width}:=
   | GetRegister (_ : Register)
@@ -27,6 +27,7 @@ Section Riscv.
   | GetPrivMode
   | SetPrivMode (_ : PrivMode)
   | Fence (_ : MachineInt) (_ : MachineInt)
+  | LogInstr (_ : Instruction)
   | GetPC
   | SetPC (_ : word)
   | StartCycle
@@ -52,6 +53,7 @@ Section Riscv.
     | GetPrivMode => PrivMode
     | SetPrivMode _ => unit
     | Fence _ _ => unit
+    | LogInstr _ => unit
     | GetPC => word
     | SetPC _ => unit
     | StartCycle => unit
@@ -78,6 +80,7 @@ Section Riscv.
     getPrivMode := act GetPrivMode ret;
     setPrivMode m := act (SetPrivMode m) ret;
     fence a b := act (Fence a b) ret;
+    logInstr a := act (LogInstr a) ret;
     getPC := act GetPC ret;
     setPC a := act (SetPC a) ret;
     endCycleNormal := act EndCycleNormal ret;

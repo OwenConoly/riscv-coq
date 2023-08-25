@@ -55,6 +55,7 @@ Section Riscv.
     getPrivMode := act (id, GetPrivMode) ret;
     setPrivMode m := act (id, SetPrivMode m) ret;
     fence a b := act (id, Fence a b) ret;
+    logInstr a := act (id, LogInstr a) ret;
     getPC := act (id, GetPC) ret;
     setPC a := act (addMetricJumps 1, SetPC a) ret;
     endCycleNormal := act (addMetricInstructions 1, EndCycleNormal) ret;

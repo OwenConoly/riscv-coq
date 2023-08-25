@@ -36,7 +36,7 @@ Section Riscv.
   Import HnatmapNotations. Open Scope hnatmap_scope.
 
   Local Notation get := (@StateAbortFailOperations.get State). (* to improve type inference *)
-
+  Print RiscvProgram.
   Global Instance AddExecTrace(RVP: RiscvProgram (StateAbortFail State) word):
     RiscvProgram (StateAbortFail State) word := {
     getRegister := getRegister;
@@ -71,6 +71,7 @@ Section Riscv.
     getPrivMode := getPrivMode;
     setPrivMode := setPrivMode;
     fence := fence;
+    logInstr := logInstr;
     endCycleNormal := endCycleNormal;
     endCycleEarly{A} := @endCycleEarly _ _ _ _ _ A;
   }.

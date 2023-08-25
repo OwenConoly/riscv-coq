@@ -22,6 +22,7 @@ Section Riscv.
     M unit :=
     pc <- getPC;
     inst <- loadWord Fetch pc;
+    logInstr (decode iset (combine 4 inst));;
     execute (decode iset (combine 4 inst));;
     endCycleNormal.
 

@@ -114,7 +114,7 @@ Section Sane.
           | apply setPC_sane
           | match goal with
             | |- context [match ?x with _ => _ end] => destruct x
-            end ].
+            end ]. Check loadWord_sane. Check logInstr_sane.
 
   Context {PRSane: MetricPrimitivesSane PRParams}.
 
@@ -165,6 +165,7 @@ Section Sane.
     unfold run1. intros.
     apply Bind_sane; [apply getPC_sane|intros].
     apply Bind_sane; [apply loadWord_sane|intros].
+    apply Bind_sane; [apply logInstr_sane|intros].
     apply Bind_sane; [apply execute_sane|intros].
     apply endCycleNormal_sane.
   Qed.

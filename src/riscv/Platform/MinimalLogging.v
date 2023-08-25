@@ -71,6 +71,8 @@ Section Riscv.
       setPrivMode := setPrivMode;
       fence := fence;
 
+      logInstr := logInstr;
+
       endCycleNormal := endCycleNormal;
       endCycleEarly{A} := @endCycleEarly _ _ _ _ _ A;
   }.

@@ -11,6 +11,22 @@ Require Import coqutil.Z.Lia.
 Require Import coqutil.Map.Interface.
 Require Import riscv.Platform.MaterializeRiscvProgram.
 
+Require Import riscv.Utility.Monads.
+Require Import riscv.Utility.MonadNotations.
+Definition Mtriv (x : Type) := x.
+Definition trivialBind (A B : Type) (x : Mtriv A) (f : A -> B) : Mtriv B := f x.
+Definition trivialReturn (A : Type) (a : A) : Mtriv A := a.
+Print Monad.
+Lemma trivial_left_identity : forall (A B : Type) (a : A) (f : A -> Mtriv B), trivialBind A B (trivialReturn A a) f = f a.
+Proof. trivial. Qed.
+Lemma trivial_right_identity : forall (A : Type) (m : Mtriv A), trivialBind A A m (trivialReturn A) = m.
+Proof. trivial. Qed.
+Lemma trivial_associativity : forall (A B C : Type) (m : Mtriv A) (f : A -> Mtriv B) (g : B -> Mtriv C), trivialBind B C (trivialBind A B m f) g = trivialBind A C m (fun x : A => trivialBind B C (f x) g).
+Proof. trivial. Qed.
+ 
+Definition trivialMonad : Monad Mtriv :=
+  {| Bind := trivialBind; Return := trivialReturn; left_identity := trivial_left_identity; right_identity := trivial_right_identity; associativity := trivial_associativity |}.
+
 Module map.
   (* Swap argument order to enable usage of partially applied `map.set k v` as an updater *)
   Definition set{key value}{map: map.map key value}(k: key)(v: value)(m: map): map :=
@@ -31,7 +47,8 @@ Section Riscv.
     nextPc: word;
     mem: Mem;
     log: list LogItem;
-    csrs: CSRFile
+    csrs: CSRFile;
+    trace: list Decode.LeakageEvent
   }.
 
   (* TODO: add XAddrs tracking so that executing an instruction written in a previous cycle
@@ -61,7 +78,7 @@ Section Riscv.
     else word.of_Z 0.
 
   Definition setReg(reg: Z)(v: word)(regs: Registers): Registers :=
-    if ((0 <? reg) && (reg <? 32))%bool then map.put regs reg v else regs.
+    if ((0 <? reg) && (reg <? 32))%bool then map.put regs reg v else regs. Print updatePc.
 
   Definition run_primitive(a: riscv_primitive)(mach: State):
              (primitive_result a -> State -> Prop) -> (State -> Prop) -> Prop :=
@@ -99,6 +116,8 @@ Section Riscv.
                             | Machine => postF tt mach
                             | User | Supervisor => False
                             end
+    | LogInstr i => fun postF postA =>
+                      postF tt { mach with trace := (@Decode.leakage_of_instr Mtriv trivialMonad (fun reg => word.unsigned (getReg mach.(regs) reg)) i) :: mach.(trace) }
     | MakeReservation _
     | ClearReservation _
     | CheckReservation _

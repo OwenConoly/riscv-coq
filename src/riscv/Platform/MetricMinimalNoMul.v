@@ -51,6 +51,7 @@ Section Riscv.
     | GetPrivMode => id
     | SetPrivMode m => id
     | Fence a b => id
+    | LogInstr _ => id
     | GetPC => id
     | SetPC a => addMetricJumps 1
     | StartCycle => id
