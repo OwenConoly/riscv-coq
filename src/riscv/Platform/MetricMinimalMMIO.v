@@ -32,9 +32,10 @@ Section Riscv.
   (* note: ext_spec does not have access to the metrics *)
   Context {mmio_spec: MMIOSpec}.
 
+  (*should i change this to (list LeakageEvent -> list LeakageEvent) * ... ? *)
   Definition action : Type := (MetricLog -> MetricLog) * riscv_primitive.
   Definition result (a : action) := primitive_result (snd a).
-  Local Notation M := (free action result).
+  Local Notation M := (free action result). Print act.
 
   Global Instance IsRiscvMachine: RiscvProgram M word := {|
     getRegister a := act (id, GetRegister a) ret;
@@ -59,7 +60,13 @@ Section Riscv.
     setPC a := act (addMetricJumps 1, SetPC a) ret;
     endCycleNormal := act (addMetricInstructions 1, EndCycleNormal) ret;
     endCycleEarly A := act (addMetricInstructions 1, EndCycleEarly A) ret;
-  |}.
+                                                        |}.
+
+  Check addMetricInstructions.
+
+  Global Instance IsRiscvMachineWithLeakage: RiscvProgramWithLeakage :=
+    {|
+      logInstr a := act (id, LogInstr a) ret; |}.
 
   Definition interp_action a metmach post :=
     interpret_action (snd a) (metmach.(getMachine)) (fun r mach =>
