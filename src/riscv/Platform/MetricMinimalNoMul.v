@@ -51,6 +51,7 @@ Section Riscv.
     | GetPrivMode => id
     | SetPrivMode m => id
     | Fence a b => id
+    | LeakEvent a => id
     | GetPC => id
     | SetPC a => addMetricJumps 1
     | StartCycle => id
@@ -108,7 +109,7 @@ Section Riscv.
   Proof.
     intros D I.
     unshelve epose proof (MinimalNoMul.interpret_action_preserves_valid' _ _ _ D I) as H0; eauto.
-  Qed.
+  Qed. Search RiscvProgramWithLeakage. Print MetricPrimitivesSane. Search RiscvProgramWithLeakage.
 
   Global Instance MetricMinimalNoMulPrimitivesSane{memOk: map.ok Mem} :
     MetricPrimitivesSane MetricMinimalNoMulPrimitivesParams.
@@ -140,7 +141,7 @@ Section Riscv.
       | |-_ /\ _ => split
       end.
       (* setRegister *)
-      destruct getMachine; eassumption.
+      1: destruct getMachine; eassumption.
   Qed.
 
 End Riscv.

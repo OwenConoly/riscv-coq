@@ -64,7 +64,7 @@ Section Riscv.
   Definition interpret_action (a : riscv_primitive) (mach : RiscvMachine) :
     (primitive_result a -> RiscvMachine -> Prop) -> (RiscvMachine -> Prop) -> Prop :=
     match a with
-    | GetRegister reg => fun (postF: word -> RiscvMachine -> Prop) postA =>
+    | GetRegister reg => fun postF postA =>
         let v := getReg mach.(getRegs) reg in
         postF v mach
     | SetRegister reg v => fun postF postA =>
@@ -84,6 +84,7 @@ Section Riscv.
         postF tt (withNextPc (word.add mach.(getPc) (word.of_Z 4)) mach)
     | EndCycleNormal => fun postF postA => postF tt (updatePc mach)
     | EndCycleEarly _ => fun postF postA => postA (updatePc mach) (* ignores postF containing the continuation *)
+    | LeakEvent _
     | MakeReservation _
     | ClearReservation _
     | CheckReservation _
