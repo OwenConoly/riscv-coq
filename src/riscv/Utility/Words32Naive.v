@@ -1,8 +1,8 @@
 Require Import Coq.ZArith.BinInt.
-Require Import coqutil.Z.Lia.
-Require Import coqutil.Word.Properties.
-Require Import coqutil.Word.Bitwidth.
-Require Import coqutil.Word.Naive.
+Require Import nondet.coqutil.Z.Lia.
+Require Import nondet.coqutil.Word.Properties.
+Require Import nondet.coqutil.Word.Bitwidth.
+Require Import nondet.coqutil.Word.Naive.
 
 Local Open Scope Z_scope.
 

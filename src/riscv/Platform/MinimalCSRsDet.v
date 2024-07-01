@@ -8,8 +8,8 @@ Require Import riscv.Spec.CSRFile.
 Require Import riscv.Utility.Utility.
 Require Import riscv.Spec.Primitives.
 Require Import riscv.Utility.ExtensibleRecords.
-Require Import coqutil.Z.Lia.
-Require Import coqutil.Map.Interface.
+Require Import nondet.coqutil.Z.Lia.
+Require Import nondet.coqutil.Map.Interface.
 Require Import riscv.Platform.Sane.
 
 Local Open Scope Z_scope.

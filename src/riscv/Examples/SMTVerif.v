@@ -1,8 +1,8 @@
 Require Import Coq.Lists.List.
 Require Import Coq.Logic.Classical_Prop.
 Import ListNotations.
-Require Import coqutil.Decidable.
-Require Import coqutil.Word.Naive.
+Require Import nondet.coqutil.Decidable.
+Require Import nondet.coqutil.Word.Naive.
 Require Import riscv.Spec.Machine.
 Require Import riscv.Spec.Decode.
 Require Import riscv.Spec.Execute.

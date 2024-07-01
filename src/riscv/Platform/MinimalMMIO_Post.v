@@ -7,14 +7,14 @@ Require Import riscv.Spec.Machine.
 Require Import riscv.Utility.Utility.
 Require Import riscv.Spec.Primitives.
 Require Import Coq.Lists.List. Import ListNotations.
-Require Import coqutil.Datatypes.List.
-Require Import coqutil.Datatypes.ListSet.
+Require Import nondet.coqutil.Datatypes.List.
+Require Import nondet.coqutil.Datatypes.ListSet.
 Require Export riscv.Platform.RiscvMachine.
-Require Import coqutil.Z.Lia.
-Require Import coqutil.Map.Interface.
-Require Import coqutil.Map.Properties.
-Require Import coqutil.Datatypes.PropSet.
-Require Import coqutil.Tactics.Tactics.
+Require Import nondet.coqutil.Z.Lia.
+Require Import nondet.coqutil.Map.Interface.
+Require Import nondet.coqutil.Map.Properties.
+Require Import nondet.coqutil.Datatypes.PropSet.
+Require Import nondet.coqutil.Tactics.Tactics.
 Require Import riscv.Platform.Sane.
 
 Local Open Scope Z_scope.

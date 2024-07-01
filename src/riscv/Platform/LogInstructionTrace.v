@@ -7,8 +7,8 @@ Require Import riscv.Spec.Machine.
 Require Import riscv.Utility.Utility.
 Require Import riscv.Spec.Primitives.
 Require Import riscv.Utility.ExtensibleRecords.
-Require Import coqutil.Z.Lia.
-Require Import coqutil.Map.Interface.
+Require Import nondet.coqutil.Z.Lia.
+Require Import nondet.coqutil.Map.Interface.
 
 Local Open Scope Z_scope.
 Local Open Scope bool_scope.

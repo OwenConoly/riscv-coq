@@ -1,9 +1,9 @@
 Require Import Coq.ZArith.ZArith.
-Require Import coqutil.Z.Lia.
-Require Import coqutil.Word.Interface coqutil.Word.Properties coqutil.Word.Naive.
-Require Import coqutil.Map.Interface.
+Require Import nondet.coqutil.Z.Lia.
+Require Import nondet.coqutil.Word.Interface nondet.coqutil.Word.Properties nondet.coqutil.Word.Naive.
+Require Import nondet.coqutil.Map.Interface.
 Require Import riscv.Utility.Words32Naive.
-Require coqutil.Map.SortedList coqutil.Map.SortedListWord.
+Require nondet.coqutil.Map.SortedList nondet.coqutil.Map.SortedListWord.
 
 
 #[global] Instance params: SortedList.parameters := {|

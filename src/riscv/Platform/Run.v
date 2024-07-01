@@ -1,5 +1,5 @@
 Require Import Coq.ZArith.BinInt.
-Require Import coqutil.Word.LittleEndian.
+Require Import nondet.coqutil.Word.LittleEndian.
 Require Import riscv.Utility.Monads.
 Require Import riscv.Utility.MonadNotations.
 Require Import riscv.Spec.Decode.

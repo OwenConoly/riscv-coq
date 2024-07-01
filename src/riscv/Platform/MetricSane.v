@@ -1,6 +1,6 @@
 Require Import Coq.Lists.List.
-Require Import coqutil.Map.Interface coqutil.Map.Properties.
-Require Import coqutil.Tactics.Tactics.
+Require Import nondet.coqutil.Map.Interface nondet.coqutil.Map.Properties.
+Require Import nondet.coqutil.Tactics.Tactics.
 Require Import riscv.Spec.Machine.
 Require Import riscv.Utility.Monads.
 Require Import riscv.Spec.Decode.

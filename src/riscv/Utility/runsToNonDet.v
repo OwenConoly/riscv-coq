@@ -1,4 +1,4 @@
-Require Import coqutil.sanity.
+Require Import nondet.coqutil.sanity.
 Unset Universe Minimization ToSet.
 Require Export riscv.Utility.PowerFunc.
 

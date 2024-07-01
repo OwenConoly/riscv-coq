@@ -1,5 +1,5 @@
-Require Import coqutil.Map.Interface.
-Require Import coqutil.Word.Interface.
+Require Import nondet.coqutil.Map.Interface.
+Require Import nondet.coqutil.Word.Interface.
 Require Import riscv.Spec.Decode.
 Require Import riscv.Utility.Utility.
 Require Import riscv.Platform.RiscvMachine.

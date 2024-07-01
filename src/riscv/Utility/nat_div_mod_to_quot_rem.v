@@ -1,7 +1,7 @@
 Require Import Coq.Arith.PeanoNat.
 Require Import Coq.ZArith.ZArith.
 Require Import riscv.Utility.Tactics.
-Require Import coqutil.Z.Lia.
+Require Import nondet.coqutil.Z.Lia.
 
 Local Open Scope nat_scope.
 

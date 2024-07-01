@@ -1,7 +1,7 @@
 Require Import Coq.ZArith.BinInt.
 Require Import riscv.Utility.Encode.
-Require Import coqutil.Z.BitOps.
-Require Import coqutil.Z.prove_Zeq_bitwise.
+Require Import nondet.coqutil.Z.BitOps.
+Require Import nondet.coqutil.Z.prove_Zeq_bitwise.
 
 Lemma invert_encode_UJ: forall {opcode rd jimm20},
   verify_UJ opcode rd jimm20 ->

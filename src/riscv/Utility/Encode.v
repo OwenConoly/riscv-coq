@@ -442,7 +442,7 @@ Goal (respects_bounds 32 (IInstruction (Jal 0 3))).
   (* wrong, as expected *)
 Abort.
 
-Require Import coqutil.Z.Lia.
+Require Import nondet.coqutil.Z.Lia.
 
 Goal (respects_bounds 32 (IInstruction (Jal 0 4))).
   simpl. unfold verify_UJ.

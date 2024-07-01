@@ -1,6 +1,6 @@
 Require Import Coq.Lists.List.
 Require Import Coq.ZArith.BinInt.
-Require Import coqutil.Map.Interface.
+Require Import nondet.coqutil.Map.Interface.
 Require Import riscv.Utility.Monads.
 Require Import riscv.Utility.Utility.
 Require Import riscv.Spec.Decode.

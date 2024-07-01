@@ -13,9 +13,9 @@ Require Export riscv.Platform.RiscvMachine.
 Require Export riscv.Platform.MetricRiscvMachine.
 Require Import riscv.Platform.MinimalNoMul.
 Require Import riscv.Platform.MetricLogging.
-Require Import coqutil.Z.Lia.
-Require Import coqutil.Map.Interface.
-Require Import coqutil.Tactics.Tactics.
+Require Import nondet.coqutil.Z.Lia.
+Require Import nondet.coqutil.Map.Interface.
+Require Import nondet.coqutil.Tactics.Tactics.
 Import MetricRiscvMachine.
 
 Local Open Scope Z_scope.

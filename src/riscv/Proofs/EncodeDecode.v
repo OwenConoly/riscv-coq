@@ -1,9 +1,9 @@
 Require Export Coq.ZArith.ZArith.
 Require Export Coq.Lists.List. Import ListNotations.
-Require Import coqutil.Tactics.rdelta.
-Require Import coqutil.Tactics.destr.
-Require Import coqutil.Z.prove_Zeq_bitwise.
-Require Import coqutil.Tactics.Tactics.
+Require Import nondet.coqutil.Tactics.rdelta.
+Require Import nondet.coqutil.Tactics.destr.
+Require Import nondet.coqutil.Z.prove_Zeq_bitwise.
+Require Import nondet.coqutil.Tactics.Tactics.
 Require Export riscv.Spec.Decode.
 Require Export riscv.Utility.Encode.
 Require Export riscv.Utility.Utility.

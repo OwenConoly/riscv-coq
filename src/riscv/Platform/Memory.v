@@ -1,16 +1,16 @@
 Require Import Coq.Lists.List.
 Require Import Coq.ZArith.ZArith.
-Require Import coqutil.Word.Interface.
-Require Import coqutil.Word.Properties.
-Require Import coqutil.Word.Bitwidth.
-Require Import coqutil.Datatypes.HList.
-Require Import coqutil.Datatypes.PrimitivePair.
-Require Import coqutil.Map.Interface.
-Require Import coqutil.Map.Properties.
-Require Import coqutil.Tactics.Tactics.
-Require Import coqutil.sanity.
-Require Import coqutil.Z.Lia.
-Require Import coqutil.Byte.
+Require Import nondet.coqutil.Word.Interface.
+Require Import nondet.coqutil.Word.Properties.
+Require Import nondet.coqutil.Word.Bitwidth.
+Require Import nondet.coqutil.Datatypes.HList.
+Require Import nondet.coqutil.Datatypes.PrimitivePair.
+Require Import nondet.coqutil.Map.Interface.
+Require Import nondet.coqutil.Map.Properties.
+Require Import nondet.coqutil.Tactics.Tactics.
+Require Import nondet.coqutil.sanity.
+Require Import nondet.coqutil.Z.Lia.
+Require Import nondet.coqutil.Byte.
 
 Local Open Scope Z_scope.
 

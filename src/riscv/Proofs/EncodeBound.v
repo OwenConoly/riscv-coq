@@ -3,8 +3,8 @@ Require Import riscv.Spec.Decode.
 Require Import riscv.Utility.Encode.
 Require Import riscv.Utility.Utility.
 Require Import riscv.Utility.Tactics.
-Require Import coqutil.Z.prove_Zeq_bitwise.
-Require Import coqutil.Z.Lia.
+Require Import nondet.coqutil.Z.prove_Zeq_bitwise.
+Require Import nondet.coqutil.Z.Lia.
 
 
 Local Open Scope bool_scope.

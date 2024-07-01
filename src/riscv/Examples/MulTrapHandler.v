@@ -1,6 +1,6 @@
-Require Import coqutil.Z.Lia.
-Require Import coqutil.Word.Naive.
-Require Import coqutil.Word.Properties.
+Require Import nondet.coqutil.Z.Lia.
+Require Import nondet.coqutil.Word.Naive.
+Require Import nondet.coqutil.Word.Properties.
 Require Coq.Strings.String. Open Scope string_scope.
 Require Import Coq.Lists.List. Import ListNotations.
 Require Import riscv.Utility.InstructionCoercions. Open Scope ilist_scope.
@@ -17,12 +17,12 @@ Require Import riscv.Utility.Monads.
 Require Import riscv.Utility.MonadNotations.
 Require Import riscv.Utility.MkMachineWidth.
 Require Import riscv.Utility.Encode.
-Require Import coqutil.Map.Interface.
+Require Import nondet.coqutil.Map.Interface.
 Require Import riscv.Utility.Words32Naive.
 Require Import riscv.Utility.DefaultMemImpl32.
-Require Import coqutil.Map.Z_keyed_SortedListMap.
+Require Import nondet.coqutil.Map.Z_keyed_SortedListMap.
 Require Import riscv.Utility.ExtensibleRecords. Import HnatmapNotations. Open Scope hnatmap_scope.
-Require coqutil.Map.SortedList.
+Require nondet.coqutil.Map.SortedList.
 Require Import riscv.Examples.SoftmulInsts.
 Require Import riscv.Platform.LogInstructionTrace.
 

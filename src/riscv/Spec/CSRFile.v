@@ -1,7 +1,7 @@
 Require Import Coq.ZArith.ZArith.
-Require Import coqutil.Map.Interface.
-Require Import coqutil.Map.SortedList.
-Require Import coqutil.Z.Lia.
+Require Import nondet.coqutil.Map.Interface.
+Require Import nondet.coqutil.Map.SortedList.
+Require Import nondet.coqutil.Z.Lia.
 Require Import riscv.Utility.Utility.
 Require Import riscv.Spec.CSRField.
 Local Open Scope Z_scope.
