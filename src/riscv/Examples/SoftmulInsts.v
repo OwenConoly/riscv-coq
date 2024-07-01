@@ -1,6 +1,6 @@
 Require Import Coq.Lists.List. Import ListNotations.
 Require Import Coq.ZArith.ZArith. Open Scope Z_scope.
-Require Import coqutil.Datatypes.List.
+Require Import det.coqutil.Datatypes.List.
 Require Import riscv.Utility.InstructionCoercions. Open Scope ilist_scope.
 Require Import riscv.Spec.CSR.
 Require Import riscv.Spec.Decode.

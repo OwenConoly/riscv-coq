@@ -1,8 +1,8 @@
 Require Import Coq.Lists.List.
-Require Import coqutil.Z.Lia.
+Require Import det.coqutil.Z.Lia.
 Import ListNotations.
-Require Import coqutil.Word.Naive.
-Require Import coqutil.Word.Properties.
+Require Import det.coqutil.Word.Naive.
+Require Import det.coqutil.Word.Properties.
 Require Import riscv.Spec.Machine.
 Require Import riscv.Spec.Decode.
 Require Import Coq.ZArith.BinInt. Local Open Scope Z_scope.
@@ -13,12 +13,12 @@ Require Import riscv.Platform.MinimalLogging.
 Require Import riscv.Platform.Run.
 Require Import riscv.Utility.Monads.
 Require Import riscv.Utility.MkMachineWidth.
-Require Import coqutil.Map.Interface.
+Require Import det.coqutil.Map.Interface.
 Require Import riscv.Utility.Words32Naive.
 Require Import riscv.Utility.DefaultMemImpl32.
-Require Import coqutil.Map.Z_keyed_SortedListMap.
+Require Import det.coqutil.Map.Z_keyed_SortedListMap.
 
-Require coqutil.Map.SortedList.
+Require det.coqutil.Map.SortedList.
 
 Definition fib6_riscv: list MachineInt := [ (* TODO should be "word32", not MachineInt *)
   0x00600993;         (* li s3,6 *)

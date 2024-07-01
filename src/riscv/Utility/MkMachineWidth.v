@@ -1,8 +1,8 @@
 Require Import Coq.ZArith.ZArith.
-Require Import coqutil.Word.Interface.
-Require Import coqutil.Z.BitOps.
-Require Import coqutil.Word.LittleEndian.
-Require Import coqutil.Datatypes.HList.
+Require Import det.coqutil.Word.Interface.
+Require Import det.coqutil.Z.BitOps.
+Require Import det.coqutil.Word.LittleEndian.
+Require Import det.coqutil.Datatypes.HList.
 Require Import riscv.Utility.Utility.
 Local Open Scope Z_scope.
 

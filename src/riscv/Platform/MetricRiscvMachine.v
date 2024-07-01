@@ -1,7 +1,7 @@
 Require Import Coq.Strings.String.
-Require Import coqutil.Map.Interface.
-Require Import coqutil.Word.Interface.
-Require Import coqutil.Word.LittleEndian.
+Require Import det.coqutil.Map.Interface.
+Require Import det.coqutil.Word.Interface.
+Require Import det.coqutil.Word.LittleEndian.
 Require Import riscv.Spec.Decode.
 Require Import riscv.Platform.Memory.
 Require Import riscv.Utility.Utility.

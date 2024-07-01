@@ -8,15 +8,15 @@ Require Import riscv.Spec.Machine.
 Require Import riscv.Utility.Utility.
 Require Import riscv.Spec.Primitives.
 Require Import Coq.Lists.List. Import ListNotations.
-Require Import coqutil.Datatypes.List.
-Require Import coqutil.Datatypes.ListSet.
+Require Import det.coqutil.Datatypes.List.
+Require Import det.coqutil.Datatypes.ListSet.
 Require Export riscv.Platform.RiscvMachine.
 Require Export riscv.Platform.MaterializeRiscvProgram.
-Require Import coqutil.Z.Lia.
-Require Import coqutil.Map.Interface.
-Require Import coqutil.Map.Properties.
-Require Import coqutil.Datatypes.PropSet.
-Require Import coqutil.Tactics.Tactics.
+Require Import det.coqutil.Z.Lia.
+Require Import det.coqutil.Map.Interface.
+Require Import det.coqutil.Map.Properties.
+Require Import det.coqutil.Datatypes.PropSet.
+Require Import det.coqutil.Tactics.Tactics.
 Require Import riscv.Platform.Sane.
 
 Local Open Scope Z_scope.
@@ -221,7 +221,7 @@ Section Riscv.
     eauto.
   Qed.
 
-  Import coqutil.Tactics.Tactics.
+  Import det.coqutil.Tactics.Tactics.
 
   Lemma interpret_action_appendonly a s postF postA :
     interpret_action a s postF postA ->

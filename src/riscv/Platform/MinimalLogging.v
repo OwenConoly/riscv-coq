@@ -10,7 +10,7 @@ Require Import riscv.Utility.PowerFunc.
 Require Import riscv.Utility.Utility.
 Require Import Coq.Lists.List. Import ListNotations.
 Require Import riscv.Platform.Minimal.
-Require Import coqutil.Map.Interface.
+Require Import det.coqutil.Map.Interface.
 
 
 Section Riscv.

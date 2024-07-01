@@ -1,12 +1,12 @@
 Require Export Coq.ZArith.BinIntDef.
 Require Import Coq.ZArith.ZArith.
 Require Import Coq.setoid_ring.Ring_theory.
-Require Export coqutil.Word.Interface.
-Require Export coqutil.Word.Bitwidth.
-Require Export coqutil.Byte.
-Require Import coqutil.Datatypes.HList.
-Require Import coqutil.sanity.
-Require Export coqutil.Z.BitOps.
+Require Export det.coqutil.Word.Interface.
+Require Export det.coqutil.Word.Bitwidth.
+Require Export det.coqutil.Byte.
+Require Import det.coqutil.Datatypes.HList.
+Require Import det.coqutil.sanity.
+Require Export det.coqutil.Z.BitOps.
 
 Global Unset Universe Minimization ToSet.
 

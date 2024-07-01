@@ -1,8 +1,8 @@
 Require Export Coq.ZArith.ZArith.
 Require Export Coq.Lists.List. Import ListNotations.
-Require Import coqutil.Tactics.Tactics.
-Require Import coqutil.Tactics.rdelta.
-Require Import coqutil.Tactics.destr.
+Require Import det.coqutil.Tactics.Tactics.
+Require Import det.coqutil.Tactics.rdelta.
+Require Import det.coqutil.Tactics.destr.
 Require Export riscv.Spec.Decode.
 Require Export riscv.Utility.Utility.
 

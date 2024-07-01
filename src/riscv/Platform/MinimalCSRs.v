@@ -1,14 +1,14 @@
 Require Import Coq.ZArith.ZArith. Local Open Scope Z_scope.
 Require Import Coq.Strings.String.
 Require Import Coq.Lists.List. Import ListNotations.
-Require Import coqutil.Tactics.Tactics.
+Require Import det.coqutil.Tactics.Tactics.
 Require Import riscv.Spec.Machine.
 Require Import riscv.Platform.Memory.
 Require Import riscv.Spec.CSRFile.
 Require Import riscv.Utility.Utility.
-Require Import coqutil.Datatypes.RecordSetters. Export OCamlLikeNotations.
-Require Import coqutil.Z.Lia.
-Require Import coqutil.Map.Interface.
+Require Import det.coqutil.Datatypes.RecordSetters. Export OCamlLikeNotations.
+Require Import det.coqutil.Z.Lia.
+Require Import det.coqutil.Map.Interface.
 Require Import riscv.Platform.MaterializeRiscvProgram.
 
 Module map.

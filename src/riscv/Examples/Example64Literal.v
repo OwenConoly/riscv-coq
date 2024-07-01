@@ -1,8 +1,8 @@
 Require Import Coq.Lists.List.
-Require Import coqutil.Z.Lia.
+Require Import det.coqutil.Z.Lia.
 Import ListNotations.
-Require Import coqutil.Word.Naive.
-Require Import coqutil.Word.Properties.
+Require Import det.coqutil.Word.Naive.
+Require Import det.coqutil.Word.Properties.
 Require Import riscv.Spec.Machine.
 Require Import riscv.Spec.Decode.
 Require Import Coq.ZArith.BinInt. Local Open Scope Z_scope.
@@ -13,11 +13,11 @@ Require Import riscv.Platform.MinimalLogging.
 Require Import riscv.Platform.Run.
 Require Import riscv.Utility.Monads.
 Require Import riscv.Utility.MkMachineWidth.
-Require Import coqutil.Map.Interface.
+Require Import det.coqutil.Map.Interface.
 Require Import riscv.Utility.Words64Naive.
 Require Import riscv.Utility.DefaultMemImpl64.
-Require Import coqutil.Map.Z_keyed_SortedListMap.
-Require coqutil.Map.SortedList.
+Require Import det.coqutil.Map.Z_keyed_SortedListMap.
+Require det.coqutil.Map.SortedList.
 
 #[global] Existing Instance DefaultRiscvState.
 

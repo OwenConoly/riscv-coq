@@ -8,14 +8,14 @@ Require Import riscv.Spec.Execute.
 Require Import riscv.Utility.PowerFunc.
 Require Import riscv.Utility.Utility.
 Require Import riscv.Spec.Primitives.
-Require Import coqutil.Map.Interface.
+Require Import det.coqutil.Map.Interface.
 Require Import riscv.Platform.RiscvMachine.
 Require Import riscv.Platform.Minimal.
 Require Import riscv.Platform.MetricRiscvMachine.
 Require Import riscv.Platform.MetricLogging.
 Require Import riscv.Spec.MetricPrimitives.
-Require Import coqutil.Z.Lia.
-Require Import coqutil.Z.Lia.
+Require Import det.coqutil.Z.Lia.
+Require Import det.coqutil.Z.Lia.
 Require Import Coq.Logic.FunctionalExtensionality.
 Require Import Coq.Logic.PropExtensionality.
 

@@ -9,8 +9,8 @@ Require Import riscv.Spec.Machine.
 Require Import riscv.Utility.Utility.
 Require Import riscv.Spec.Primitives.
 Require Export riscv.Platform.RiscvMachine.
-Require Import coqutil.Z.Lia.
-Require Import coqutil.Map.Interface.
+Require Import det.coqutil.Z.Lia.
+Require Import det.coqutil.Map.Interface.
 Require Import riscv.Platform.Sane.
 
 Local Open Scope Z_scope.

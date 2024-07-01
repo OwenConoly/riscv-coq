@@ -1,5 +1,5 @@
-Require Import coqutil.Map.Interface.
-Require Import coqutil.Word.Interface.
+Require Import det.coqutil.Map.Interface.
+Require Import det.coqutil.Word.Interface.
 Require Import riscv.Utility.Utility.
 Require Import riscv.Utility.Monads. Import OStateOperations.
 Require Import riscv.Utility.MonadNotations.

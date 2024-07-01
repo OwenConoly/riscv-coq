@@ -1,9 +1,9 @@
 Require Import Coq.ZArith.ZArith.
-Require Import coqutil.Z.Lia.
-Require Import coqutil.Word.Interface coqutil.Word.Properties coqutil.Word.Naive.
-Require Import coqutil.Map.Interface.
+Require Import det.coqutil.Z.Lia.
+Require Import det.coqutil.Word.Interface det.coqutil.Word.Properties det.coqutil.Word.Naive.
+Require Import det.coqutil.Map.Interface.
 Require Import riscv.Utility.Words64Naive.
-Require coqutil.Map.SortedList coqutil.Map.SortedListWord.
+Require det.coqutil.Map.SortedList det.coqutil.Map.SortedListWord.
 
 
 #[global] Instance params: SortedList.parameters := {|
