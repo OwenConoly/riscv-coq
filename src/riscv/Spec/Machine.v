@@ -71,7 +71,7 @@ Class RiscvProgramWithLeakage
   {width} {BW : Bitwidth width} {word: word.word width}
   {M}{t}{MM}{MWt}:=
   mkRiscvProgramWithLeakage {
-      RVP :> @RiscvProgram M t MM MWt;
+      #[global] RVP :: @RiscvProgram M t MM MWt;
       leakEvent : @LeakageEvent width BW word -> M unit;
     }.
 
