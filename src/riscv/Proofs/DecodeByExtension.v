@@ -208,6 +208,79 @@ Ltac loop ind :=
       loop (ICons ind)
   end.
 
+#[local]
+Lemma Z_eqb_elim : forall (P : Z -> bool -> Prop) (z1 z2 : Z),
+  P z2 true ->
+  P z1 false ->
+  P z1 (z1 =? z2)%Z.
+Proof.
+now intros; destruct (Decidable.Z.eqb_spec z1 z2); subst.
+Qed.
+
+Ltac loop0 := match goal with
+|- context[Z.eqb ?l ?r] =>
+  let r' := rdelta r in
+  lazymatch isZcst r' with
+  | true => idtac
+  end;
+  pattern l, (Z.eqb l r);
+  apply Z_eqb_elim; cbn
+end.
+
+#[local]
+Lemma isValidI_if : forall (b : bool) u1 u2, isValidI (if b then u1 else u2) = if b then isValidI u1 else isValidI u2.
+Proof.
+now destruct b.
+Qed.
+
+#[local]
+Lemma isValidM_if : forall (b : bool) u1 u2, isValidM (if b then u1 else u2) = if b then isValidM u1 else isValidM u2.
+Proof.
+now destruct b.
+Qed.
+
+#[local]
+Lemma isValidA_if : forall (b : bool) u1 u2, isValidA (if b then u1 else u2) = if b then isValidA u1 else isValidA u2.
+Proof.
+now destruct b.
+Qed.
+
+#[local]
+Lemma isValidF_if : forall (b : bool) u1 u2, isValidF (if b then u1 else u2) = if b then isValidF u1 else isValidF u2.
+Proof.
+now destruct b.
+Qed.
+
+#[local]
+Lemma isValidI64_if : forall (b : bool) u1 u2, isValidI64 (if b then u1 else u2) = if b then isValidI64 u1 else isValidI64 u2.
+Proof.
+now destruct b.
+Qed.
+
+#[local]
+Lemma isValidM64_if : forall (b : bool) u1 u2, isValidM64 (if b then u1 else u2) = if b then isValidM64 u1 else isValidM64 u2.
+Proof.
+now destruct b.
+Qed.
+
+#[local]
+Lemma isValidA64_if : forall (b : bool) u1 u2, isValidA64 (if b then u1 else u2) = if b then isValidA64 u1 else isValidA64 u2.
+Proof.
+now destruct b.
+Qed.
+
+#[local]
+Lemma isValidF64_if : forall (b : bool) u1 u2, isValidF64 (if b then u1 else u2) = if b then isValidF64 u1 else isValidF64 u2.
+Proof.
+now destruct b.
+Qed.
+
+#[local]
+Lemma isValidCSR_if : forall (b : bool) u1 u2, isValidCSR (if b then u1 else u2) = if b then isValidCSR u1 else isValidCSR u2.
+Proof.
+now destruct b.
+Qed.
+
 Lemma extensions_disjoint': forall iset inst,
   (if isValidI (decodeI (bitwidth iset) inst) then 1 else 0) +
   (if isValidM (decodeM (bitwidth iset) inst) then 1 else 0) +
@@ -222,15 +295,28 @@ Proof.
   intros.
   cbv beta zeta delta [decodeI decodeM decodeA decodeF
                        decodeI64 decodeM64 decodeA64 decodeF64
+                       decodeCSR].
+  rewrite !isValidI_if, !isValidM_if, !isValidA_if, !isValidF_if, !isValidI64_if,
+    !isValidM64_if, !isValidA64_if, !isValidF64_if, !isValidCSR_if.
+  cbv beta zeta delta [decodeI decodeM decodeA decodeF
+                       decodeI64 decodeM64 decodeA64 decodeF64
                        decodeCSR
                        isValidI isValidM isValidA isValidF
                        isValidI64 isValidM64 isValidA64 isValidF64
                        isValidCSR].
-  loop INil.
+  unfold andb. (* critical to prevent an exponential blowup *)
+  repeat match goal with
+  |- context[Z.eqb ?l ?r] =>
+    tryif (is_var l) then fail
+    else
+      let z := fresh "z" in
+      generalize l; intro z
+  end.
+  repeat loop0.
   all: match goal with
        | |- ?lhs <= 1 => isnatcst_addition lhs; (apply Nat.le_refl || apply Nat.le_0_1)
        end.
-Time Qed. (* 367.474 secs (laptop) *)
+Time Qed.
 
 Lemma extensions_disjoint: forall iset inst, length (decode_results iset inst) <= 1.
 Proof.
