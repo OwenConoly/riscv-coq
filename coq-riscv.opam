@@ -12,7 +12,10 @@ build: [
 install: [make "EXTERNAL_DEPENDENCIES=1" "install"]
 depends: [
   "coq" {>= "8.18~" | = "dev"}
-  ("coq-coqutil" {>= "0.0.7" | = "dev"} | "coq-fiat-crypto-with-bedrock")
+  "coq-coqutil" {>= "0.0.7" | = "dev"}
+]
+conflict-class: [
+  "coq-riscv"
 ]
 dev-repo: "git+https://github.com/mit-plv/riscv-coq.git"
 synopsis: "RISC-V Specification in Coq, somewhat experimental"
