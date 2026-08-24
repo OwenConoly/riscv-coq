@@ -1,7 +1,7 @@
 Require Import Coq.Lists.List.
 Require Import Coq.Logic.Classical_Prop.
 Import ListNotations.
-Require Import coqutil.Decidable.
+Require Import coqutil.Decidable coqutil.Eqb.
 Require Import coqutil.Word.Naive.
 Require Import riscv.Spec.Machine.
 Require Import riscv.Spec.Decode.
@@ -25,7 +25,7 @@ Inductive Array(T U: Type): Type :=
 Arguments const {_} {_} _.
 Arguments store {_} {_}.
 
-Fixpoint select{T U: Type}{eqbT: T -> T -> bool}{eqbT_spec: EqDecider eqbT}(a: Array T U)(i: T): U :=
+Fixpoint select{T U: Type}{eqbT: Eqb T}(a: Array T U)(i: T): U :=
   match a with
   | const u => u
   | store a' i' u => if eqbT i i' then u else select a' i

@@ -1,5 +1,5 @@
 Require Import Coq.Lists.List. Import ListNotations.
-Require Import coqutil.Decidable.
+Require Import coqutil.Decidable coqutil.Eqb.
 Require Import coqutil.Tactics.Tactics.
 Require Import coqutil.Tactics.Simp.
 Require Import riscv.Spec.Machine.
@@ -132,7 +132,7 @@ Definition Array2Fun{T U: Type}(a: Array T U): T -> U :=
   match a with
   | mkArray f => f
   end.
-Definition store{T U: Type}{eqbT: T -> T -> bool}{eqbT_spec: EqDecider eqbT}(a: Array T U)(i: T)(u: U):
+Definition store{T U: Type}{eqbT: Eqb T}(a: Array T U)(i: T)(u: U):
   Array T U := mkArray (fun j => if eqbT i j then u else Array2Fun a j).
 Definition constArray(T U: Type)(u: U): Array T U := mkArray (fun _ => u).
 
